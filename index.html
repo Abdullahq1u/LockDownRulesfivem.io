@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/png" href="https://cdn.discordapp.com/attachments/1169205182995910678/1403625555907313795/lockDownLogo-removebg-preview.png?ex=68983baa&is=6896ea2a&hm=841d7b946915c257f21d9f9ea5d4d5bc2082cf6032d8c8a6481e081b98b1e893&">
+<title>قوانين سيرفر LockDown</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap' );
+
+  /* خلفية مع تفاصيل متحركة كثيرة */
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Cairo', sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 15px;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+.accordion-body::-webkit-scrollbar {
+  width: 10px;
+}
+
+.accordion-body::-webkit-scrollbar-track {
+  background: #0f2027;
+  border-radius: 8px;
+}
+
+.accordion-body::-webkit-scrollbar-thumb {
+  background: cyan;
+  border-radius: 10px;
+  box-shadow: 0 0 6px cyan;
+  transition: background-color 0.3s ease;
+}
+
+.accordion-body::-webkit-scrollbar-thumb:hover {
+  background: #00ffffcc;
+}
+
+
+  /* دوائر شفافة متحركة */
+  body::before, body::after {
+    content: "";
+    position: fixed;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    opacity: 0.15;
+    pointer-events: none;
+    animation: floatUpDown 6s ease-in-out infinite alternate;
+    z-index: 0;
+  }
+
+  body::before {
+    background: rgba(0, 255, 255, 0.25);
+    top: 8%;
+    left: 4%;
+  }
+
+  body::after {
+    background: rgba(0, 255, 255, 0.18);
+    top: 78%;
+    right: 4%;
+    animation-duration: 3s;
+  }
+
+  @keyframes floatUpDown {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(20px); }
+  }
+
+  /* نجوم صغيرة متلألئة */
+  .star {
+    position: fixed;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: twinkle 3s ease-in-out infinite alternate;
+    z-index: 0;
+  }
+
+  @keyframes twinkle {
+    0% { opacity: 0.8; }
+    50% { opacity: 0.3; }
+    100% { opacity: 0.8; }
+  }
+
+  /* انشئ 20 نجمة بأحجام وأماكن مختلفة */
+  /* باستخدام الـCSS فقط */
+  .star:nth-child(1) { width: 4px; height: 4px; top: 15%; left: 20%; animation-delay: 0s; }
+  .star:nth-child(2) { width: 3px; height: 3px; top: 40%; left: 10%; animation-delay: 1.2s; }
+  .star:nth-child(3) { width: 2px; height: 2px; top: 60%; left: 30%; animation-delay: 2.1s; }
+  .star:nth-child(4) { width: 5px; height: 5px; top: 20%; left: 80%; animation-delay: 0.7s; }
+  .star:nth-child(5) { width: 3px; height: 3px; top: 35%; left: 70%; animation-delay: 1.8s; }
+  .star:nth-child(6) { width: 4px; height: 4px; top: 50%; left: 50%; animation-delay: 0.4s; }
+  .star:nth-child(7) { width: 3px; height: 3px; top: 75%; left: 60%; animation-delay: 2.5s; }
+  .star:nth-child(8) { width: 2px; height: 2px; top: 85%; left: 85%; animation-delay: 0.2s; }
+  .star:nth-child(9) { width: 3px; height: 3px; top: 10%; left: 40%; animation-delay: 1.1s; }
+  .star:nth-child(10) { width: 2px; height: 2px; top: 55%; left: 15%; animation-delay: 1.9s; }
+  .star:nth-child(11) { width: 4px; height: 4px; top: 68%; left: 75%; animation-delay: 0.6s; }
+  .star:nth-child(12) { width: 3px; height: 3px; top: 80%; left: 20%; animation-delay: 2.8s; }
+  .star:nth-child(13) { width: 5px; height: 5px; top: 25%; left: 55%; animation-delay: 0.9s; }
+  .star:nth-child(14) { width: 2px; height: 2px; top: 35%; left: 45%; animation-delay: 2.2s; }
+  .star:nth-child(15) { width: 3px; height: 3px; top: 65%; left: 35%; animation-delay: 0.3s; }
+  .star:nth-child(16) { width: 4px; height: 4px; top: 78%; left: 40%; animation-delay: 1.7s; }
+  .star:nth-child(17) { width: 3px; height: 3px; top: 15%; left: 60%; animation-delay: 0.5s; }
+  .star:nth-child(18) { width: 2px; height: 2px; top: 90%; left: 10%; animation-delay: 2.9s; }
+  .star:nth-child(19) { width: 3px; height: 3px; top: 5%; left: 75%; animation-delay: 1.3s; }
+  .star:nth-child(20) { width: 4px; height: 4px; top: 50%; left: 85%; animation-delay: 0.8s; }
+
+  header {
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* تعديل كتابة LockDown */
+  h1 {
+    font-size: 3.5rem;
+    color: cyan;
+    font-weight: 900;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 1;
+    filter: blur(0.8px);
+    text-shadow:
+      0 0 6px rgba(255, 255, 255, 0.5),
+      0 0 12px cyan,
+      0 0 18px cyan,
+      0 0 24px rgba(255, 255, 255, 0.3);
+    animation: flickerGlow 3s infinite alternate;
+  }
+
+  @keyframes flickerGlow {
+    0% {
+      filter: blur(0.7px);
+      text-shadow:
+        0 0 5px rgba(255, 255, 255, 0.4),
+        0 0 10px cyan,
+        0 0 15px cyan,
+        0 0 20px rgba(255, 255, 255, 0.2);
+    }
+    50% {
+      filter: blur(1.2px);
+      text-shadow:
+        0 0 8px rgba(255, 255, 255, 0.6),
+        0 0 16px cyan,
+        0 0 24px cyan,
+        0 0 30px rgba(255, 255, 255, 0.4);
+    }
+    100% {
+      filter: blur(0.8px);
+      text-shadow:
+        0 0 6px rgba(255, 255, 255, 0.5),
+        0 0 12px cyan,
+        0 0 18px cyan,
+        0 0 24px rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  .server-logo {
+    width: 200px;
+    margin: 20px 0;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    position: relative;
+    z-index: 1;
+  }
+
+  .accordion {
+    width: 100%;
+    max-width: 700px;
+    background: rgba(0, 255, 255, 0.12);
+    border-radius: 15px;
+    padding: 25px 30px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4);
+    backdrop-filter: blur(12px);
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .accordion-item {
+    margin-bottom: 15px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* تأثير إضاءة خفيف متحرك على كل كاتيجوري */
+  .accordion-item::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(0, 255, 255, 0.15), transparent 70%);
+    opacity: 0.6;
+    animation: moveGlow 6s linear infinite;
+    pointer-events: none;
+    border-radius: 15px;
+    z-index: 0;
+  }
+
+  @keyframes moveGlow {
+    0% { transform: translate(0, 0); }
+    100% { transform: translate(15%, 15%); }
+  }
+
+  .accordion-header {
+    background: rgba(0, 255, 255, 0.25);
+    padding: 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: background 0.4s ease;
+    user-select: none;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 0 8px cyan;
+  }
+
+  .accordion-header:hover {
+    background: rgba(0, 255, 255, 0.45);
+    box-shadow: 0 0 14px cyan;
+  }
+
+  .accordion-body {
+    max-height: 0;
+    opacity: 0;
+    overflow-y: auto; /* للسماح بالتمرير العمودي عند الحاجة */
+    background: rgba(0, 255, 255, 0.18);
+    border-radius: 12px;
+    margin-top: 8px;
+    padding: 0 18px;
+    transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease, padding 0.4s ease;
+    position: relative;
+    z-index: 1;
+    box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1);
+  }
+
+  .accordion-body.open {
+    max-height: 400px; /* تحديد أقصى ارتفاع قبل ظهور شريط التمرير */
+    opacity: 1;
+    padding: 18px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: list-counter;
+  }
+
+  li {
+    padding: 10px 12px 10px 40px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    background: rgba(0, 255, 255, 0.1);
+    position: relative;
+    counter-increment: list-counter;
+    font-size: 1.05rem;
+    box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.15);
+    transition: background 0.3s ease;
+  }
+
+  li::before {
+    content: counter(list-counter);
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: cyan;
+    color: #000;
+    font-weight: 700;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 26px;
+    user-select: none;
+    box-shadow: 0 0 6px cyan;
+  }
+
+  li:hover {
+    background: rgba(0, 255, 255, 0.2);
+  }
+
+  /* أيقونة ديسكورد PNG شفافة مع توهج */
+  .discord-icon {
+    width: 60px;
+    margin-top: 25px;
+    cursor: pointer;
+    filter: drop-shadow(0 0 10px #7289da);
+    animation: glowDiscord 2.5s ease-in-out infinite alternate;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .discord-icon:hover {
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 20px #7289da);
+  }
+
+  @keyframes glowDiscord {
+    0% {
+      filter: drop-shadow(0 0 10px #7289da);
+    }
+    100% {
+      filter: drop-shadow(0 0 20px #7289da);
+    }
+  }
+
+  footer {
+    margin-top: 40px;
+    color: #0ff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+    opacity: 0.75;
+    position: relative;
+    z-index: 1;
+  }
+</style>
+</head>
+<body>
+  <!-- نجوم صغيرة -->
+  <div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div>
+
+  <header>
+    <h1>LockDown RP</h1>
+    <p>قوانين سيرفر LockDown RP - الكاتيجوري والقوانين الرسمية</p>
+  </header>
+
+  <img
+    src="https://cdn.discordapp.com/attachments/1169205182995910678/1403625555907313795/lockDownLogo-removebg-preview.png?ex=68983baa&is=6896ea2a&hm=841d7b946915c257f21d9f9ea5d4d5bc2082cf6032d8c8a6481e081b98b1e893&"
+    alt="LockDown Server Logo"
+    class="server-logo"
+  />
+
+  <div class="accordion">
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this )">قوانين عامة</div>
+      <div class="accordion-body">
+        <ul>
+          <li>الاحترام واجب بين جميع اللاعبين.</li>
+          <li>ممنوع استخدام الغش أو التهكير.</li>
+          <li>لا يسمح بالإساءة أو الشتائم.</li>
+          <li>الالتزام بالقواعد الخاصة بالدور الذي تلعبه.</li>
+          <li>يجب عليك فهم وتطبيق مفهوم الحياة الواقعية داخل السيرفر (RP).</li>
+          <li>يُمنع تمامًا التحدث في السياسة، الأعراض، الدين، أو مضايقة الآخرين. أي مخالفة لذلك = باند نهائي.</li>
+          <li>يُمنع تقليد الشخصيات أو الأسماء الموجودة في السيرفر بأي شكل.</li>
+          <li>يجب اختيار اسم شخصية واقعي ومناسب.</li>
+          <li>إذا حضرت سيناريو بشخصية، يُمنع استخدام شخصية أخرى لك في نفس السيناريو.</li>
+          <li>يُمنع دخول أي شقة أو منزل أثناء وجود سيناريو.</li>
+          <li>يجب تشغيل برنامج التصوير مع الصوت (آخر 20 دقيقة) عبر GeForce Experience، ويجب أن يكون التصوير على كامل الشاشة. يمنع استخدام خاصية "Game Capture"، وفي حال عدم وجود تسجيل سيتم محاسبتك.</li>
+          <li>يُمنع التدخل في أي سيناريو قائم دون سبب منطقي.</li>
+          <li>يُمنع ارتداء الملابس العسكرية أو استخدام الحزام العسكري بدون صلاحية.</li>
+          <li>يُمنع التعرض للمسعفين إلا في حال تعرضهم لك، ويُمنع سرقة أو تدمير ممتلكات الشرطة أو المسعفين.</li>
+          <li>تُمنع الشخصنة بجميع أشكالها وأنواعها داخل السيرفر.</li>
+          <li>يُمنع التواصل غير الشرعي (Meta Gaming) مثل التواصل عبر الديسكورد أو أي برامج خارجية أثناء اللعب.</li>
+          <li>يُمنع ارتداء أو استخدام أي خوذة أثناء الاشتباكات أو إطلاق النار.</li>
+          <li>يُمنع ال VDM</li>
+          <li>يُمنع ال RDM</li>
+          <li>يُمنع استخدام أي برامج خارجية، أو ملفات تُسهل أو تُعدل طريقة اللعب (مودات - هاكات - الخ...).</li>
+          <li>يُمنع انك تسوي انميشن في وقت الفايت المباشر مثل Sleep Passout الخ .. من انميشنات . </li>
+          <li>يمنع منعًا باتًا في حال تم إسقاطك الرجوع للحالة بشكل كامل إلا بعد انتهاء الحالة، ويكون الرجوع فقط لنقل المصابين، ويمنع منعًا باتًا التحلل في حال تواجد المسعفين أو تواجد العسكر في الموقع. وكذلك التعميم يشمل العسكر والمواطنين (ويشمل ذلك الحالات المفتوحة).</li>
+          <li>يجب على جميع اللاعبين والعسكر الالتزام بالعدد المسموح للسرقات والحالات المفتوحة وعدم الزيادة، وفي حال الزيادة سيتم محاسبة الأشخاص المشاركين بشكل فوري.</li>
+          <li>يمنع منعًا باتًا ارتداء الخوذ في السيرفر حتى إشعار آخر.</li>
+          <li>في حال تم إسقاط عسكري أو مجرم من قبل شخص وقام بتوجيه إهانات وأمور شخصية وتصعيدات بشكل مباشر أو غير مباشر سيتم التعامل معها بباند نهائي (كـ باند إهانة جثة).</li>
+          <li>كمجرم واجب عليك قبل اتخاذ أي قرار إجرامي تجهيز خطة مسبقة لضمان نجاحك والهروب بشكل سليم، ولكن في حال كانت السرقة بدون خطة واضحة وتوجهت إلى افتعال فايت بشكل واضح سيتم تطبيق أقصى العقوبات.</li>
+          <li>منع منعًا باتًا كلبشة أي مواطن في المستشفى بالسرير لغرض إلغاء الميني قيمز وتصنف تحت استغلال ثغرة، سيتم محاسبة من يخالف التعميم بالباند النهائي من بعد صدوره.</li>
+          <li>يسمح للإدارة باتخاذ أي إجراء بحقك حتى إذا لم يكن هناك طرف مشتكي عليك.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this)">قوانين السرقات</div>
+      <div class="accordion-body">
+        <ul>
+          <li>يمنع السرقة بدون خطة واضحة أو سبب منطقي.</li>
+          <li>الرهينة ما تتجاوز مدتها 15 دقيقة.</li>
+          <li>الحد الأقصى للمشاركين في السرقة 4 أشخاص.</li>
+          <li>في حال سرقة مصرف فما فوق يجب الانتظار لحين وصول الشرطة ويمنع منعًا باتًا الهروب إلا بعد التفاوض.</li>
+          <li>في حال سرقة المصرف فما فوق وتبغى تفشل السرقة يمنع إطلاق النار على العساكر إلا بعد تنبيهم في ذلك.</li>
+          <li>يمنع منعًا باتًا سرقة الأشخاص أو قتلهم في المناطق الآمنة وخصوصًا في البنر، ومن يخالف هذا القانون يتم تبنيده بشكل نهائي ولا يتم مسامحته قطعًا.</li>
+          <li>جميع السرقات يلزم وجود رهائن ماعدا السرقات المذكورة في الادنى .</li>
+        </ul>
+
+        <div style="margin-top: 15px; border-bottom: 2px solid rgb(0, 238, 255); padding-bottom: 4px; font-weight: rgb(0, 255, 234)d; color: rgb(0, 255, 242);">
+       قوانين التفاوض بين العساكر والمواطنين في جميع الحالات
+            </div>
+        <ul>
+          <li>يمنع تبديل مفاوض من قبل المجرمين إلا بطلب أو من قبل العساكر، إلا في حال خروج المفاوض من السيرفر أو غفوة المفاوض لمدة تتجاوز 5 دقائق.</li>
+          <li>يمنع خروج المواطنين خارج السرقة باستثناء المفاوض، وفي حال خروج المواطن يتم كلبشته + خصم دقيقة كاملة ويتم سجنه 10 أشهر ويمنع توجهه للحالة مرة أخرى.</li>
+          <li>يمنع توجه المواطن للشكوى على المفاوض أو مسؤول الحالة أثناء الحالة، ويجب تقديم الشكوى بعد انتهاء الحالة.</li>
+          <li>يمنع الحديث من قبل المواطنين أو العساكر أثناء التفاوض بين الطرفين باستثناء المفاوضين، وفي حال الحديث من عسكري غير مفاوض يسمح برفع شكوى عليه لمحاسبته، والعكس صحيح.</li>
+          <li>في حال توجه المواطن لموقع السرقة أثناء تفاوض العساكر والسارقين يتم إطلاق النار الفوري على المواطن.</li>
+          <li>في حال كان العسكري خلفك وأنت خاطف الرهينة، لديك دقيقتين للتوجه لموقع السرقة أو موقع التفاوض، وفي حال توقفك في أي موقع يعتبر الموقع هو موقع التفاوض.</li>
+        </ul>
+         <div style="margin-top: 15px; border-bottom: 2px solid rgb(0, 238, 255); padding-bottom: 4px; font-weight: rgb(0, 255, 234)d; color: rgb(0, 255, 242);">
+       مفشلات الخروج الأمن
+            </div>
+        <ul>
+       <li>دخول الورشة أو تعديل المركبة بأي شكل من الأشكال.</li>
+          <li>التدخل الخارجي.</li>
+          <li>التوجه للبحر.</li>
+          <li>رفع السلاح الناري على العساكر بشكل صريح وواضح.</li>
+          <li>تعريض حياة المواطنين بشكل متعمد وواضح ومتكرر.</li>
+          <li>في حال إخراج السلاح فورًا يحق للعسكري إطلاق النار عليك.</li>
+          <li>مرور 10 دقائق على وقت المطاردة.</li>
+          <li>في حال لديك أي مركبة تستطيع صعود أي رصيف، لديك رصيف واحد فقط لتجاوزه، وفي حال تجاوزه يفشل الخروج الآمن على المركبة فقط.</li>
+          <li>القفزات المسموحة فقط واحدة سواء انتحارية أو عادية.</li>
+          <li>في حال استفزاز المواطن للعسكري أثناء الهروب يفشل عليه الخروج الآمن.</li>
+          <li>في حال دخلت أماكن ضيقة يفشل الخروج الآمن.</li>
+          <li>الهروب على الأقدام 10 ثوانٍ فقط.</li>
+          <li>مسموح فقط طلوعك إلى الجبال مرة واحدة فقط.</li>
+          <li>في حال عكس السير أكثر من ثلاث مرات سيتم فشل الخروج الآمن.</li>
+
+        <div style="margin-top: 15px; border-bottom: 2px solid rgb(0, 238, 255); padding-bottom: 4px; font-weight: rgb(0, 255, 234)d; color: rgb(0, 255, 242);">
+       عدد المجرمين في السرقات 
+            </div>
+        <ul> 
+            <li>❖ Store Robbery - (1-4)</li>
+          <li>❖ ATM Robbery - (1-4)</li>
+          <li>❖ House Robbery - (1-5)</li>
+        </ul>
+        <div style="margin-top: 15px; border-bottom: 2px solid rgb(0, 225, 255); padding-bottom: 4px; font-weight: bold; color: rgb(0, 247, 255);">
+        تنبيه السرقات هذي يجب عليك جلب رهينه للسرقة 
+        </div>
+        <ul>
+          <li>❖ DigitalDen Robbery - (2-5)</li>
+          <li>❖ Laundromat Robbery - (2-5)</li>
+          <li>❖ Cash Exchange Robbery - (3-6)</li>
+          <li>❖ Jewelry Robbery - (3-7)</li>
+        </ul>
+        <div style="margin-top: 15px; border-bottom: 2px solid rgb(0, 225, 255); padding-bottom: 4px; font-weight: bold; color: rgb(0, 247, 255);">
+         :الحد الاقصى الوحدات المباشرة للحالات 
+        </div>
+        <ul>
+          <li>❖ Store Robbery - (5)</li>
+          <li>❖ ATM Robbery - (5)</li>
+          <li>❖ Police Staff house - (7)</li>
+          <li>❖ DigitalDen Robbery - (7)</li>
+          <li>❖ Laundromat Robbery - (7)</li>
+          <li>❖ Cash Exchange Robbery - (8)</li>
+          <li>❖ Jewelry Robbery - (9)</li>
+        </ul>
+        <div style="margin-top: 15px; border-bottom: 2px solid rgb(255, 255, 255); padding-bottom: 4px; font-weight: bold; color: rgb(255, 255, 255);">
+           مهم 
+        </div>
+        <ul>
+          <li>❖ For Players : 7 MAX</li>
+          <li>❖ For Police : 11 MAX</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this)">قوانين الديسكورد</div>
+      <div class="accordion-body">
+        <ul>
+          <li>احترام الجميع، ويُمنع السب أو الإهانة بأي شكل حتى لو بشكل غير مباشر، مهما كانت الظروف.</li>
+          <li>يمنع نشر الروابط أو دعوات لسيرفرات أخرى.</li>
+          <li>يمنع التدخل في شؤون الآخرين أو تحويل النقاش إلى أمور شخصية.</li>
+          <li>يُمنع الحديث عن الأمور الدينية أو السياسية نهائيًا.</li>
+          <li>يُمنع استخدام أكثر من حساب داخل السيرفر. من يمتلك حسابين يُعرض نفسه للباند النهائي.</li>
+          <li>يُمنع انتحال الشخصيات الإدارية، والمخالفة تؤدي إلى باند مباشر.</li>
+          <li>السخرية والاستهزاء من الآخرين ممنوعة. سيتم منعه من الكتابة، وقد يتعرض لتحذير إذا تكرر.</li>
+          <li>يُمنع الاستفسار في الشات العام، أي استفسار توجه فيه إلى الدعم الفني.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this)">قوانين الصوت والتواصل</div>
+      <div class="accordion-body">
+        <ul>
+          <li>عدم استخدام مكبر الصوت بطريقة مزعجة.</li>
+          <li>احترام وقت الآخرين وعدم مقاطعتهم.</li>
+          <li>عدم تشغيل اصوات او اغاني داخل اللعبة من المايك .</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this)">اسباب الباند و التحذيرات</div>
+      <div class="accordion-body">
+        <ul>
+        <div style="margin-top: 15px; border-bottom: 2px solid rgba(255, 0, 0, 0.959); padding-bottom: 4px; font-weight: bold; color: rgb(255, 0, 0);">
+         الباند النهائي
+            </div>
+        <ul>
+          <li>هاك</li>
+          <li>القذف والدخول في العرض</li>
+          <li>سب الدين والدخول في السياسة</li>
+          <li>تلويت العسكر</li>
+        <ul>
+        <div style="margin-top: 15px; border-bottom: 2px solid rgb(0, 225, 255); padding-bottom: 4px; font-weight: bold; color: rgb(0, 247, 255);">
+         الباند المؤقت 
+            </div>
+          </ul>
+          <li>استخدام القلتشات أكثر من مرتين (تقديرية حسب تقدير المسؤول).</li>
+          <li>تلفيت (ساعتين).</li>
+          <li>الخروج عن الرول بلي (باند يوم).</li>
+          <li>العنصرية (تقديرية حسب تقدير المسؤول).</li>
+          <li>إهانة المسقط (باند ساعتين).</li>
+          <li>التحدث وهو ميت (باند ساعتين).</li>
+          <li>الصدم العشوائي (باند يوم، تصل إلى ثلاث أيام حسب تقدير المسؤول).</li>
+          <li>القتل العشوائي (باند يوم، تصل إلى ثلاث أيام حسب تقدير المسؤول).</li>
+          <li>القتل في المناطق الآمنة (باند يومين).</li>
+          <li>تخطي الحد المسموح في السرقة (باند ساعتين).</li>
+          <li>التحرش (باند ثلاث أيام، تصل إلى نهائي حسب تقدير المسؤول).</li>
+          <li>تلويت بالمنطقة الآمنة (باند يومين + إرجاع الأغراض | في حال عدم إرجاعها باند 4 أيام + تصفير الشخصية).</li>
+          <li>التواصل غير الشرعي (باند 6 ساعات).</li>
+          <li>عدم تقدير الحياة (باند 6 ساعات).</li>
+          <li>افتعال فايت (باند 8 ساعات + سحب سلاح).</li>
+          <li>قفز انتحاري (باند ساعتين).</li>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this)"> المناطق الأمنة</div>
+      <div class="accordion-body">
+        <ul>
+          <li>يمنع القتل في المناطق الآمنة.</li>
+          <li>يمنع التهديد في المناطق الآمنة.</li>
+          <li>يمنع الخطف في المناطق الآمنة.</li>
+          <li>تمنع السرقة في المناطق الآمنة.</li>
+          <li>يمنع إخراج السلاح في المناطق الآمنة.</li>
+          <li>يسمح خطف أو إخراج سلاح في منطقة آمنة في حالة واحدة فقط بالنسبة للمجرمين، في حال كنت تطارد شخص بغرض خطف أو قتل، وهرب إلى منطقة آمنة.</li>
+          <li>يسمح للعساكر إخراج الأسلحة دائمًا في المناطق الآمنة.</li>
+        <ul>
+        <div style="margin-top: 15px; border-bottom: 2px solid rgb(0, 225, 255); padding-bottom: 4px; font-weight: bold; color: rgb(0, 247, 255);">
+         جميع مايلي يعتبر من المناطق الأمنة
+            </div>
+          <li>مراكز الشرطة</li>
+          <li>المستشفى</li>
+          <li>المحكمة</li>
+          <li>السيتي هول / مركز الوظائف</li>
+          <li>التصنيع</li>
+          <li>جميع مناطق الوظائف العامة</li>
+          <li>جميع المطاعم والمقاهي</li>
+          <li>جميع الورش والمعارض</li>
+          <li>الفندق والبنر</li>
+          <li>السجن</li>
+          <li>الحجز</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this)">قوانين التحلل</div>
+      <div class="accordion-body">
+        <ul>
+          <li>يمنع التحلل وبجانبك شخص مهما كان السبب.</li>
+          <li>يمنع التحلل في حال كنت في فايت.</li>
+          <li>يمنع التحلل في حال تم القبض عليك من العسكر.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this)">قوانين الشرطة</div>
+      <div class="accordion-body">
+        <ul>
+          <li>عدم التسلط على المواطنين والرتب الأقل منك والاحترام المتبادل واجب.</li>
+          <li>الجدية في العمل وعدم أخذ الوظيفة على محمل كوميدي، ويجب عليك تقمص شخصية العسكري لأبعد حد بالتصرفات والأقوال.</li>
+          <li>الالتزام بالملابس والمركبات والأسلحة الخاصة برتبتك، ومخالفة ذلك ستحاسب عليه من قبل الشؤون الداخلية.</li>
+          <li>يمنع التجارة أو بيع أو إعطاء معدات الشرطة للمواطنين أو المسعفين (باند نهائي).</li>
+          <li>عدم استخدام أو أخذ سيارات المواطنين بسبب أو بدون سبب، في حال احتجت لسيارة تواصل مع زملائك عن طريق الراديو وطلب وحدة نقل.</li>
+          <li>عدم إظهار السلاح الناري أو التيزر إلا لسبب ولا يكون سبب سخيف، بمعنى لا يرفع إلا في الحالات القصوى فقط، كما يمنع رفع أي سلاح ناري في المستشفى وتكتفي بالتيزر فقط.</li>
+          <li>لا يحق لك كلبشة شخص بمخالفة مرورية أو الذهاب به إلى التحقيق إلا إذا كان الشخص غير متعاون.</li>
+          <li>لا يحق لك إرسال الشخص للسجن بدون دلائل على جريمته.</li>
+          <li>قبل إرسال الشخص إلى السجن يجب تفتيشه وأخذ جميع الأدوات الإجرامية التي يحملها ووضعها في خزنة الأدلة وفك الكلبشة عنه وإرساله للسجن.</li>
+          <li>عدم استخدام الراديو إلا للتبليغ والتعامل مع الراديو باحترافية قصوى وعدم الخروج عن الرول بلاي في الراديو أبداً، والالتزام بالبروتوكولات العسكرية في التحدث بالراديو.</li>
+          <li>في حال المطاردة يجب عليك عدم الصدم والحفاظ على حياتك وترك مسافة بينك وبين الهارب بسيطة لتجنب الصدم.</li>
+          <li>في حال المطاردة يمنع طلق النار إلا بطلب إذن من مركز العمليات في الراديو مع وصف للحالة التي تطاردها وأخذ الإذن منه. الحالة الوحيدة التي تسمح لك فيها طلق النار بدون إذن هي إذا بادر الهارب بطلق النار أو شكل خطر على حياة العساكر مثل إخراج السلاح الناري لمدة تتجاوز 5 ثوانٍ وتكون تقديرية ويتحملها العسكري ومن أذن له.</li>
+          <li>يجب تلبيت جميع مطالب الخاطفين غير التعجيزية ولا تقلل من هيبة الشرطة ولا يسمح لك باتخاذ أي إجراء إلا بعد مراجعة مسؤول الحالة.</li>
+          <li>ضبط النفس وعدم الشتم والتهديد بالسجن أو التهديد بأي صلاحية موكلة لك ويجب عليك إبعاد المشاكل الشخصية.</li>
+          <li>ممنوع منعا باتاً عصيان أوامر الرتب العليا.</li>
+          <li>يمنع منعاً باتاً حمل السلاح الثقيل ويتم وضعه في مركبتك ويمنع استخراجه إلا في حال تم استخراج سلاح ثقيل من قبل أحد المجرمين مع أخذ الإذن من مسؤول الحالة.</li>
+          <li>يمنع منعاً باتاً حجز أي مركبة بالمدة وتكتفي فقط بالمبالغ المالية - يُستثنى من ذلك السيرجنت فما فوق، وفي حال وصلك أمر من أحد السيرجنت يجب عليك كتابة اسمه في الرسالة وإضافتها MDT.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this)">قوانين التعامل مع الإدارة</div>
+      <div class="accordion-body">
+        <ul>
+          <li>التواصل بأدب واحترام مع الإدارة في جميع الأوقات.</li>
+          <li>عدم التهجم أو التجريح ضد أعضاء الإدارة.</li>
+          <li>الالتزام بتعليمات الإدارة دون تأخير.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="toggleAccordion(this)">قوانين الصحة</div>
+      <div class="accordion-body">
+        <ul>
+          <li>يجب احترام جميع المواطنين واللاعبين.</li>
+          <li>عليك بالجدية في العمل وعدم أخذ الوظيفة على محمل كوميدي ويجب تقمص شخصية المسعف لأبعد حد بالتصرفات والأقوال.</li>
+          <li>الالتزام بالملابس والمركبات والمعدات الخاصة برتبتك ومخالفة ذلك ستحاسب عليه من قبل أعضاء وإدارة الشؤون.</li>
+          <li>يمنع إنعاش المواطن إذا كان سبب موته متفجر أو منتحر.</li>
+          <li>يمنع منعًا باتًا إنعاش المواطن مسقط كليًا خارج المستشفى.</li>
+          <li>يمنع نقل المجرمين من موقع إطلاق النار إلا في حال وجود عسكري مرافق لك لحمايتك أو بعد التأكد من وقف إطلاق النار.</li>
+          <li>الالتزام بالقواعد المرورية: عدم قطع الإشارات، عدم السرعة، عدم التفحيط إلخ.</li>
+          <li>سوء استخدام المركبة أو الهلي الإسعافية بأي شكل من الأشكال يعرضك للمحاسبة الفورية.</li>
+          <li>يمنع عليك التدخل في شؤون القسم الآخر والتجنب بعض المصطلحات غير اللائقة أثناء العلاج.</li>
+          <li>يمنع عليك كونك (Paramedic) دخول والعلاج داخل المستشفى أثناء تواجد وحدات قسم الآخر (EMS) وتكتفي بنقل المريض وتسليمه لأحد الأطباء بالمستشفى، خلاف ذلك ستحاسب عليه من قبل أعضاء وإدارة الشؤون.</li>
+          <li>يجب التعاون مع القسم الآخر ومساندتهم في أوقات القصوى.</li>
+          <li>يمنع مباشرة الميدان دون حمل جهاز التتبع.</li>
+          <li>يجب أن يكون لك القدرة الكاملة على عدم العصبية على أي مواطن أو التعامل السيء معه مهما كان السبب.</li>
+          <li>ضبط النفس وعدم الشتم والتهديد بعدم المعالجة أو التهديد بأي صلاحية موكلة لك ويجب عليك إبعاد المشاكل الشخصية.</li>
+          <li>يمنع إجراء عملية دون اختصاص.</li>
+          <li>تهريب أحد المجرمين من الشرطة يعرضك للمحاسبة الشديدة من قبل إدارة الصحة.</li>
+          <li>يمنع حمل معدات غير قانونية، وفي حال تم اكتشافك من قبل مسؤولين الصحة سيتم اتخاذ عقوبات شديدة.</li>
+          <li>يمنع استخراج هلي بدون وينق.</li>
+          <li>يمنع توزيع تقارير الإسعافية دون هوية المريض.</li>
+          <li>بإمكانك تسجيل خروج من المستشفى وإكمال استمرار حياتك كمواطن.</li>
+          <li>توزيع المعدات أو أدوية الإسعافية للمواطنين أو العساكر (باند بيرم).</li>
+          <li>فرض سلطة بحق أو بغير حق.</li>
+          <li>في الحالات الجنائية مهما كان عدد الرهائن تكتفي بإرسال وحدتين فقط: وحدة من داخل المستشفى (EMS) ووحدة من خارج المستشفى (Paramedic).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <a href="https://discord.com/invite/ApdWAaXfAd" target="_blank" title="رابط ديسكورد السيرفر">
+    <img
+      src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png"
+      alt="Discord"
+      class="discord-icon"
+    />
+  </a>
+
+  <footer>
+    &copy; 2025 LockDown Server - كل الحقوق محفوظة
+  </footer>
+
+  <script>
+    function toggleAccordion(element ) {
+      const body = element.nextElementSibling;
+      const allBodies = document.querySelectorAll('.accordion-body');
+
+      // إغلاق جميع الأقسام الأخرى المفتوحة
+      allBodies.forEach(otherBody => {
+        if (otherBody !== body && otherBody.classList.contains('open')) {
+          otherBody.classList.remove('open');
+        }
+      });
+
+      // فتح أو إغلاق القسم الحالي
+      body.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
